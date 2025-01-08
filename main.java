@@ -1,52 +1,41 @@
-class Shape {
-  void calculateArea() {
-    System.out.println("calculateArea...");
+abstract class Notification {
+  public String message;
+
+  public Notification(String message) {
+    this.message = message;
   }
+
+  abstract void send();
 }
 
-class Circle extends Shape {
-  private int radius;
-
-  public void setRadius(int radius) {
-    this.radius = radius;
+class EmailNotification extends Notification {
+  public EmailNotification(String message) {
+    super(message);
   }
 
   @Override
-  void calculateArea() {
-    double result = Math.PI * Math.pow(radius, 2);
-    System.out.println("The area is: " + result + "m2");
+  void send() {
+    System.out.println("Hey you have a message: " + this.message);
   }
 }
 
-class Rectangle extends Shape {
-  private int length;
-  private int width;
-
-  public void setLength(int length) {
-    this.length = length;
-  }
-
-  public void setWidth(int width) {
-    this.width = width;
+class SMSNotification extends Notification {
+  public SMSNotification(String message) {
+    super(message);
   }
 
   @Override
-  void calculateArea() {
-    double result = length * width;
-
-    System.out.println("The area is: " + result + "m2");
+  void send() {
+    System.out.println("Hey you have a message: " + this.message);
   }
 }
 
 public class main {
   public static void main(String[] args) {
-    Rectangle r = new Rectangle();
-    r.setLength(5);
-    r.setWidth(5);
-    r.calculateArea();
+    EmailNotification email = new EmailNotification("Hey gang welcome to my youtube channel");
+    SMSNotification sms = new SMSNotification("Hey I also have a SMS API");
 
-    Circle c = new Circle();
-    c.setRadius(5);
-    c.calculateArea();
+    email.send();
+    sms.send();
   }
 }
