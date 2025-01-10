@@ -24,5 +24,8 @@ public class Main {
 
     // Display items again
     libraryService.displayItems();
+
+    // Searching for an item
+    libraryService.search("Java");
   }
 }

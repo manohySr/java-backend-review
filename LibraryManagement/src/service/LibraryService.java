@@ -1,14 +1,17 @@
 package LibraryManagement.src.service;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
+import LibraryManagement.src.interfaces.Searchable;
 import LibraryManagement.src.model.Item;
 
 /**
  * LibraryService
  * Service to manage the library's items
  */
-public class LibraryService {
+public class LibraryService implements Searchable {
   private ArrayList<Item> itemList;
 
   public LibraryService() {
@@ -41,6 +44,26 @@ public class LibraryService {
 
     System.out.println("Here are all the items in our library");
     for (Item item : itemList) {
+      item.displayInfo();
+    }
+  }
+
+  @Override
+  public void search(String keyword) {
+    System.out.println("Searching for item containing: " + keyword);
+
+    List<Item> itemFound = itemList.stream()
+        .filter(item -> item.getTitle().contains(keyword))
+        .collect(Collectors.toList());
+
+    if (itemFound.isEmpty()) {
+      System.out.println("No items found");
+      return;
+    }
+
+    System.out.println("The item you're searching for is :");
+    for (Item item : itemFound) {
+      System.out.print("\t");
       item.displayInfo();
     }
   }
