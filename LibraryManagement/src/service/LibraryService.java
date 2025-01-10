@@ -53,7 +53,7 @@ public class LibraryService implements Searchable {
     System.out.println("Searching for item containing: " + keyword);
 
     List<Item> itemFound = itemList.stream()
-        .filter(item -> item.getTitle().contains(keyword))
+        .filter(item -> item.getTitle().toLowerCase().contains(keyword.toLowerCase()))
         .collect(Collectors.toList());
 
     if (itemFound.isEmpty()) {
